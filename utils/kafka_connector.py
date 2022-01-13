@@ -31,8 +31,12 @@ def run_consumer(consumer_conf, consumer_name, topic, process):
                 # Check for Kafka message
                 record_key = msg.key()
                 record_value = msg.value()
-                data = json.loads(record_value)
-                process(data)
+                # in case that ingested that isn't json
+                try:
+                    data = json.loads(record_value)
+                    process(data)
+                except:
+                    pass
     except KeyboardInterrupt:
         pass
     finally:
