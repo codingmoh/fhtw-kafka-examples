@@ -1,27 +1,17 @@
-from confluent_kafka import Consumer
+from confluent_kafka import Consumer, Producer
 import json
-import ccloud_lib
+import utils.ccloud_lib as ccloud_lib
 
-if __name__ == '__main__':
-
-    # Read arguments and configurations and initialize
-    args = ccloud_lib.parse_args()
-    config_file = args.config_file
-    topic = args.topic
-    conf = ccloud_lib.read_ccloud_config(config_file)
-
-    # Create Consumer instance
-    consumer_conf = ccloud_lib.pop_schema_registry_params_from_config(conf)
+def run_consumer(consumer_conf, consumer_name, topic, process):
     # set custom group name
-    consumer_conf['group.id'] = 'python_example_groups_1'
+    consumer_conf['group.id'] = consumer_name
     # 'auto.offset.reset=earliest' to start reading from the beginning of the
     #   topic if no committed offsets exist
     consumer_conf['auto.offset.reset'] = 'earliest'
     consumer = Consumer(consumer_conf)
-
+    
     # Subscribe to topic
     consumer.subscribe([topic])
-    
 
     # Process messages
     total_count = 0
@@ -42,7 +32,7 @@ if __name__ == '__main__':
                 record_key = msg.key()
                 record_value = msg.value()
                 data = json.loads(record_value)
-                print(data)
+                process(data)
     except KeyboardInterrupt:
         pass
     finally:
