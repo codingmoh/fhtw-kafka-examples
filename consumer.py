@@ -1,4 +1,6 @@
 from utils.kafka_connector import run_consumer
+from confluent_kafka import Producer, KafkaError
+
 import utils.ccloud_lib as ccloud_lib
 
 def process_data(data):
