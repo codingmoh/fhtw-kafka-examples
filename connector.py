@@ -15,7 +15,7 @@ def process_data(message):
     code = message['code']
     print(f'document { code } received => sending...')
     app_search.index_documents(
-        engine_name=engine_name",
+        engine_name=engine_name,
         documents=[message])
 
 if __name__ == '__main__':
