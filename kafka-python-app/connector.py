@@ -6,15 +6,16 @@ from utils import ccloud_lib as ccloud_lib
 from elastic_enterprise_search import AppSearch
 
 app_search = AppSearch(
-    "https://fhtw-product-store.ent.northeurope.azure.elastic-cloud.com/",
-    http_auth="private-px1qfor8d9cvq2i45nbqdk4d"
+    "https://my-deployment-05b9cd.ent.westeurope.azure.elastic-cloud.com",
+    http_auth="private-4qqhfwj3hwwhrrxr71urc98k"
 )
+engine_name = "APP-PRODUCTS"
 
 def process_data(message):
     code = message['code']
     print(f'document { code } received => sending...')
     app_search.index_documents(
-        engine_name="product-store-search",
+        engine_name=engine_name",
         documents=[message])
 
 if __name__ == '__main__':
