@@ -6,10 +6,10 @@ from utils import ccloud_lib as ccloud_lib
 from elastic_enterprise_search import AppSearch
 
 app_search = AppSearch(
-    "https://my-deployment-05b9cd.ent.westeurope.azure.elastic-cloud.com",
-    http_auth="private-4qqhfwj3hwwhrrxr71urc98k"
+    "https://3a5fa9f6b56d41128a585a22d5f14349.ent-search.us-central1.gcp.cloud.es.io",
+    http_auth="private-c5z5xwm7sepyk9sgmugeb9st"
 )
-engine_name = "APP-PRODUCTS"
+engine_name = "product-search-engine"
 
 def process_data(message):
     code = message['code']
